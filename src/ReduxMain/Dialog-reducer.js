@@ -1,8 +1,10 @@
-const ADDMESSAGE = 'ADD-MESSAGE'
-const UPDATENEWMESSAGETEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+const ADDMESSAGE='ADD-MESSAGE'
+const UPDATENEWMESSAGETEXT='UPDATE-NEW-MESSAGE-TEXT'
 
 
-const dialogReducer = (state, action) => {
+
+
+const dialogReducer = (state , action) => {
     switch (action.type) {
         case ADDMESSAGE:
             let newMessage = {id: '5', message: state.newMessageText}

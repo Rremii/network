@@ -1,51 +1,37 @@
 import axios from "axios";
 
+const baseUrl = `https://social-network.samuraijs.com/api/1.0/`
 
 const instance = axios.create({
     withCredentials: true,
     baseURL: `https://social-network.samuraijs.com/api/1.0/`,
     headers: {
-        "API-KEY": "6fa24ce0-7d88-4e48-906f-251064e0b4f1"
+        "API-KEY": "1aeec809-b404-4144-a045-23e113d2772a"
     }
 
 })
 
+
 export const usersAPI = {
     getUsers: (currentPage = 1, pageSize = 5) => {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
-    },
-    getFriends: (id) => {
-        return instance.get(`users/`).then(response => response.data)
+        return instance.get(baseUrl + `users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
     }
 }
 export const followAPI = {
-    follow: (id) => {
-        return instance.post(`follow/${id}`, '').then(response => response.data)
+    follow:(id)=>{
+        return instance.post(baseUrl + `follow/${id}`,'').then(response => response.data)
     },
-    unfollow: (id) => {
-        return instance.delete(`follow/${id}`).then(response => response.data)
+    unfollow:(id)=>{
+        return instance.delete(baseUrl + `follow/${id}`).then(response => response.data)
     }
 }
 export const authAPI = {
-    login: (email, password, rememberMe) => {
-
-        return instance.post(`auth/login`, {email, password, rememberMe})
-    },
-    getLoginData: () => {
-        return instance.get(`auth/me`).then(response => response.data)
-    },
-    logout: () => {
-        return instance.delete(`auth/login`).then(response => response.data)
-    },
+    login:()=>{
+        return instance.get(baseUrl + `auth/me`).then(response => response.data)
+    }
 }
 export const profileAPI = {
-    setUserProfile: (id) => {
-        return instance.get(`profile/${id}`).then(response => response.data)
-    },
-    getUserStatus: (id) => {
-        return instance.get(`profile/status/${id}`)
-    },
-    updateUserStatus: (status) => {
-        return instance.put(`profile/status`, {status})
+    setUserProfile:(id)=>{
+        return instance.get(baseUrl + `profile/${id}`).then(response => response.data)
     }
 }

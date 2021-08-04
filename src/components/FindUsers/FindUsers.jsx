@@ -1,25 +1,51 @@
+import css from './FindUsers.module.css'
 import React from "react";
-import Paginator from "../common/paginator/Paginator";
-import User from "./User/User";
-import Preloader from "../common/preloader/Preloader";
-
+import userPhoto from "../../Images/userPhoto.png"
+import {NavLink} from "react-router-dom";
 const FindUsers = (props) => {
 
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
+    }
 
     return (
         <div>
+            <div>
+                {pages.slice(0, 10).map(p => {
+                    return <span
+                        className={props.currentPage === p && css.selectedPage}
+                        onClick={() => {
+                            props.onPageChanged(p)
+                        }}>{p} </span>
+                })
+                }
+            </div>
+            {
+                props.users.map(u =>
+                    <div className={css.wrapper}>
+                        <NavLink to={'/profile/' + u.id}>
+                            <img src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                        </NavLink>
+                        <span>{u.name}</span>
+                        <span>{u.status}</span>
+                        <span>
+                            {u.followed ?
+                                <button disabled={props.followingProgress.some(id => id === u.id)} onClick={() => {
 
-            <Paginator totalUsersCount={props.totalUsersCount}
-                       pageSize={props.pageSize}
-                       currentPage={props.currentPage}
-                       onPageChanged={props.onPageChanged}/>
+                                    props.unfollowTC(u.id)
 
-            {props.users.map(u =>
-                <User user={u}
-                      followingProgress={props.followingProgress}
-                      unfollowTC={props.unfollowTC}
-                      followTC={props.followTC}/>
-            )}
+                                }}>unfollow</button> :
+                                <button disabled={props.followingProgress.some(id => id === u.id)} onClick={() => {
+
+                                    props.followTC(u.id)
+
+                                }}>follow</button>}
+                        </span>
+                    </div>
+                )
+            }
 
         </div>
     )

@@ -1,6 +1,6 @@
 
-.post {
-    position: relative;
+.post{
+    position:relative;
     font-size: 25px;
     color: rgb(77, 145, 10);
     background-color: rgba(222, 184, 135, 0);
@@ -8,14 +8,12 @@
     top: -30px;
     margin-bottom: 3%;
 }
-
-.ico {
+.ico{
     width: 50px;
     border-radius: 20%;
 }
-
-.post div {
-    position: relative;
+.post div{
+    position:relative;
     left: 80px;
     top: 0;
 

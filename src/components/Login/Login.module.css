@@ -1,14 +1,3 @@
-.login {
+.login{
     color: wheat;
-}
-
-.rememberMe {
-    font-size: 30px;
-    color: wheat;
-}
-
-.mainError {
-    display: inline-block;
-    border: 1px solid crimson;
-    color: red;
 }

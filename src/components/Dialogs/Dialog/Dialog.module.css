@@ -4,12 +4,10 @@
     margin-top: 50px;
     color: wheat;
 }
-
-.active .dialog {
+.active .dialog{
     color: gold;
 }
-
-.dialog img {
+.dialog img{
     width: 50px;
     border-radius: 40%;
 

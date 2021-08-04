@@ -1,14 +1,9 @@
 import React from 'react'
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {
-    setUserProfileTC,
-    setUserStatusTC,
-    updateUserStatusTC
-} from "../../Redux/ProfileReducer";
-import {compose} from "redux";
-import {setFriendsTC} from "../../Redux/FriendsReducer";
-import {withRouter} from "react-router-dom";
+import {setUserProfile, setUserProfileTC, toggleIsFetching} from "../../Redux/ProfileReducer";
+import withRouter from "react-router-dom/es/withRouter";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -18,18 +13,17 @@ class ProfileContainer extends React.Component {
 
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = this.props.currentUserId;
-            if (!userId) {
-                debugger
-                this.props.history.push('/login')
-            }
+            userId = 2
         }
+
         this.props.setUserProfileTC(userId)
-        this.props.setUserStatusTC(userId)
+
     }
 
     render() {
 
+        if(!this.props.isAuth){alert('you should login first!')
+            return <Redirect to={"/login"}/>}
 
         return <>
 
@@ -38,21 +32,18 @@ class ProfileContainer extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
+
+let mapStateToProps = (state) => {
     return {
         profilePage: state.profilePage,
-        currentUserId: state.auth.currentUserId
+        isFetching: state.profilePage.isFetching,
+        isAuth: state.auth.isAuth
     }
 }
 
 
-export default compose(
-    connect(mapStateToProps, {
-        setUserProfileTC,
-        setUserStatusTC,
-        updateUserStatusTC,
-        setFriendsTC,
-    }),
-    withRouter,
-)(ProfileContainer)
+export default connect(mapStateToProps, {
+    setUserProfileTC
+})(WithUrlDataContainerComponent)

@@ -9,14 +9,12 @@
 .all_dialogs {
 
 }
-
 .dialog {
     position: relative;
     margin-top: 50px;
     color: wheat;
 }
-
-.active .dialog {
+.active .dialog{
     color: gold;
 }
 

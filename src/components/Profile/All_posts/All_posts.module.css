@@ -1,12 +1,12 @@
-.wrapper {
-    position: absolute;
+.wrapper{
+ position: absolute;
     top: 550px;
     left: 450px;
 }
 
 
 .Add_post {
-    display: block;
+display: block;
     position: relative;
     left: 80px;
 
@@ -14,7 +14,7 @@
 }
 
 
-.Add_post button {
+.Add_post button{
     background-color: chocolate;
     border-radius: 20%;
     padding: 5px;

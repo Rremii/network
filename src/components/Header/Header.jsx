@@ -4,11 +4,6 @@ import {NavLink} from "react-router-dom";
 
 
 const Header = (props) => {
-
-    const logout = () => {
-        props.logoutTC()
-    }
-
     return (
         <header className={css.header}>
             <NavLink to='/profile'>
@@ -16,20 +11,9 @@ const Header = (props) => {
                                                   alt="logo"/></button>
             </NavLink>
             <div className={css.login}>
-                {props.isAuth ?
-                    <div>
-                        welcome {props.login}
-                        <button onClick={logout}>Logout</button>
-                    </div>
-                    :
-                    <div>
-                        <NavLink to='/login'>
-                            login
-                        </NavLink>
-                    </div>
-
-
-                }
+                {props.isAuth ? 'wellcome ' + props.login : <NavLink to='/login'>
+                    login
+                </NavLink>}
             </div>
 
 

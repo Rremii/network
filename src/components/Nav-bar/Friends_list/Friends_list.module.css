@@ -1,16 +1,15 @@
 
-.friends_list {
-    display: grid;
+
+.friends_list{
+display: grid;
     grid-template-columns: 60px 200px;
-    padding: 10px 0 0 40px;
+    padding:10px 0 0 40px;
 }
-
-.avatar {
+.avatar{
     width: 50px;
-    border-radius: 50%;
+    border-radius: 40%;
 }
-
-.name {
+.name{
 
 }
 

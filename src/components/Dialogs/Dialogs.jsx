@@ -2,10 +2,8 @@ import css from './Dialogs.module.css'
 import React from 'react'
 import Dialog from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {Field, reduxForm} from "redux-form";
-import {Textarea} from "../common/FormsControls/FormsControls";
-import {maxLenght, required} from "../../utils/validators/validators";
-import AllPosts from "../Profile/All_posts/All_posts";
+import {Redirect} from "react-router-dom";
+
 
 
 const Dialogs = (props) => {
@@ -23,10 +21,19 @@ const Dialogs = (props) => {
     })
 
 
-    let addMessage = (newMessageText) => {
-        props.addMessage(newMessageText.newMessageText)
+
+    let addMessage = () => {
+        props.addMessage()
     }
 
+    let newMessage = React.createRef()
+    let onMessageChange = () => {
+        let text = newMessage.current.value
+        props.updateNewMessageText(text)
+    }
+
+    if(!props.isAuth ){alert('you should login first!')
+        return <Redirect to={"/login"}/>}
 
     return (
         <div className={css.all_dialogs_all_messages}>
@@ -36,28 +43,15 @@ const Dialogs = (props) => {
             </div>
 
             <div className={css.all_messages}>
-
-                <MessageReduxForm onSubmit={addMessage}/>
-
+                <div>
+                    <textarea placeholder='enter your message' onChange={onMessageChange} ref={newMessage}
+                              value={props.messagePage.newMessageText}/>
+                    <button onClick={addMessage}>addMessage</button>
+                </div>
                 {messageData_element}
 
             </div>
         </div>
     )
 }
-
-//validators
-let maxLenght50 = maxLenght(50)
-//
-const MessageForm = (props) => {
-    return <>
-        <form onSubmit={props.handleSubmit}>
-            <Field component={Textarea} name={'newMessageText'} validate={[required, maxLenght50]}/>
-            <button>addMessage</button>
-        </form>
-    </>
-}
-const MessageReduxForm = reduxForm({form: 'dialogMessage'})(MessageForm)
-
-
 export default Dialogs
