@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from "react-redux";
 import AllFriends from "./AllFriends";
+import {compose} from "redux";
 
 
 
@@ -20,9 +21,9 @@ let mapDispatchToProps = (dispatch) =>{
 }
 
 
-
-
-const AllFriendsContainer = connect(mapStateToProps,mapDispatchToProps)(AllFriends);
+const AllFriendsContainer = compose(
+    connect(mapStateToProps, mapDispatchToProps))
+(AllFriends);
 
 
 export default AllFriendsContainer

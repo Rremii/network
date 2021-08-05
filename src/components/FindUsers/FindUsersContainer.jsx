@@ -8,8 +8,9 @@ import React from "react";
 import FindUsers from "./FindUsers";
 import Preloader from "../common/preloader/Preloader";
 import css from "./FindUsersContainer.module.css"
+import {compose} from "redux";
 
-class FindUsersAPIContainer extends React.Component {
+class FindUsersContainer extends React.Component {
 
 
     componentDidMount() {
@@ -56,10 +57,6 @@ let mapStateToProps = (state) => {
 }
 
 
-const FindUsersContainer = connect(mapStateToProps, {
-    getUsersTC,
-    unfollowTC,
-    followTC
-})(FindUsersAPIContainer)
-
-export default FindUsersContainer
+export default compose(
+    connect(mapStateToProps, {getUsersTC, unfollowTC, followTC})
+)(FindUsersContainer)
