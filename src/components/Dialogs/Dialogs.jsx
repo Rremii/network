@@ -32,9 +32,6 @@ const Dialogs = (props) => {
         props.updateNewMessageText(text)
     }
 
-    if(!props.isAuth ){alert('you should login first!')
-        return <Redirect to={"/login"}/>}
-
     return (
         <div className={css.all_dialogs_all_messages}>
             <div className={css.all_dialogs}>
