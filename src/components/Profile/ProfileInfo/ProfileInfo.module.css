@@ -1,0 +1,31 @@
+.avatar_discription {
+    position: relative;
+    top: 200px;
+    left: 230px;
+}
+
+.avatar {
+
+    width: 240px;
+    height: 160px;
+    border: 1px dashed rgba(0, 247, 255, 0.623);
+}
+
+.discription {
+    position: relative;
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(222, 184, 135, 0);
+    left: 270px;
+    top: -150px;
+}
+
+.preloader {
+    position: absolute;
+    top: 300px;
+    left: 600px;
+}
+
+.status {
+    padding: 10px 0 10px 0;
+}

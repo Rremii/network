@@ -1,0 +1,9 @@
+.wrapper {
+    color: wheat;
+    margin: 20px 0 30px 30px;
+}
+
+.avatar {
+    width: 100px;
+    border-radius: 50%;
+}

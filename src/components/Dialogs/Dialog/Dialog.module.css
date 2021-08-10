@@ -1,0 +1,19 @@
+
+.dialog {
+    position: relative;
+    margin-top: 50px;
+    color: wheat;
+}
+
+.active .dialog {
+    color: gold;
+}
+
+.dialog img {
+    width: 50px;
+    border-radius: 40%;
+
+}
+
+
+

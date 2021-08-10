@@ -1,0 +1,30 @@
+.all_dialogs_all_messages {
+    font-size: 40px;
+    color: #96ee1a;
+    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.all_dialogs {
+
+}
+
+.dialog {
+    position: relative;
+    margin-top: 50px;
+    color: wheat;
+}
+
+.active .dialog {
+    color: gold;
+}
+
+.all_messages {
+
+}
+
+.message {
+
+}
+

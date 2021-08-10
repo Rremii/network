@@ -1,0 +1,17 @@
+
+.friends_list {
+    display: grid;
+    grid-template-columns: 60px 200px;
+    padding: 10px 0 0 40px;
+}
+
+.avatar {
+    width: 50px;
+    border-radius: 50%;
+}
+
+.name {
+
+}
+
+
