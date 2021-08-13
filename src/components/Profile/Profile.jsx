@@ -7,10 +7,10 @@ import {setUserStatusTC, updateUserStatusTC} from "../../Redux/ProfileReducer";
 const Profile = (props) => {
 
     return (
-        <profile>
+        <div>
             <ProfileInfo {...props.profilePage} updateUserStatusTC={props.updateUserStatusTC}/>
             <AllPostsContainer/>
-        </profile>
+        </div>
     )
 }
 export default Profile

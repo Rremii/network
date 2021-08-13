@@ -1,18 +1,19 @@
 import React from 'react';
 import './App.css';
 import {Route, withRouter} from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import AllFriendsContainer from "./components/AllFriends/AllFriendsContainer";
 import Nav_barContainer from "./components/Nav-bar/Nav-barContainer";
 import FindUsersContainer from "./components/FindUsers/FindUsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import Login from "./components/Login/Login";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {initializeAppTC} from "./Redux/AppReducer";
 import Preloader from "./components/common/preloader/Preloader";
+import withSuspense from "./components/Hoc/withSuspense";
 
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
+const Login = React.lazy(() => import('./components/Login/Login'))
 
 class App extends React.Component {
 
@@ -35,14 +36,16 @@ class App extends React.Component {
                 <div className="content">
                     <Route path='/findUsers' render={() => <FindUsersContainer/>}/>
                     <Route path='/friends' render={() => <AllFriendsContainer/>}/>
-                    <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-                    <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-                    <Route path='/login' render={() => <Login/>}/>
+                    <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
+                    <Route path='/dialogs' render={ withSuspense(DialogsContainer)} />
+                    <Route path='/login' render={ withSuspense(Login)}/>
                 </div>
             </div>
         );
     }
 }
+
+
 
 let mapStateToProps = (state) => {
     return {

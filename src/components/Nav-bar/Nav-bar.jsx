@@ -12,7 +12,7 @@ const Nav_bar = (props) => {
 
 
     return (
-        <nav_bar className={css.nav}>
+        <div className={css.nav}>
             <NavLink activeClassName={css.active_btn} to="/profile">
                 <button>Profile</button>
             </NavLink>
@@ -30,7 +30,7 @@ const Nav_bar = (props) => {
             </NavLink>
             <div className={css.best}>Best:</div>
             {friends_list}
-        </nav_bar>
+        </div>
     )
 }
 

@@ -8,8 +8,17 @@ import React from "react";
 import FindUsers from "./FindUsers";
 import Preloader from "../common/preloader/Preloader";
 import css from "./FindUsersContainer.module.css"
+import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingProgress,
+    getIsFetching, getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../Redux/FindUsers-selector";
+import Paginator from "../common/paginator/Paginator";
 
-class FindUsersAPIContainer extends React.Component {
+class FindUsersContainer extends React.Component {
 
 
     componentDidMount() {
@@ -34,7 +43,6 @@ class FindUsersAPIContainer extends React.Component {
                        followingProgress={this.props.followingProgress}
                        unfollowTC={this.props.unfollowTC}
                        followTC={this.props.followTC}
-
             />
 
         </>
@@ -42,7 +50,7 @@ class FindUsersAPIContainer extends React.Component {
 }
 
 
-let mapStateToProps = (state) => {
+/*let mapStateToProps = (state) => {
     return {
         users: state.findUsersPage.users,
         pageSize: state.findUsersPage.pageSize,
@@ -53,13 +61,19 @@ let mapStateToProps = (state) => {
     }
 
 
+}*/
+let mapStateToProps = (state) => {
+    return {
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingProgress: getFollowingProgress(state),
+    }
 }
 
 
-const FindUsersContainer = connect(mapStateToProps, {
-    getUsersTC,
-    unfollowTC,
-    followTC
-})(FindUsersAPIContainer)
-
-export default FindUsersContainer
+export default compose(
+    connect(mapStateToProps, {getUsersTC, unfollowTC, followTC})
+)(FindUsersContainer)

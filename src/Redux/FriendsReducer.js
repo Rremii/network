@@ -1,7 +1,7 @@
 import {followAPI, usersAPI} from "../api/api";
 import {toggleFollowingProgress, unfollow} from "./FindUsersReducer";
 
-const SET_FRIENDS = 'SET_FRIENDS'
+const SET_FRIENDS = 'friendsPage/SET_FRIENDS'
 
 let initialState = {
     friendsData: [
@@ -43,11 +43,9 @@ const friendsReducer = (state = initialState, action) => {
 export const setFriends = (friends) => {
     return {type: SET_FRIENDS, friends}
 }
-export const setFriendsTC = () => {
-    return (dispatch) => {
-        usersAPI.getFriends().then(response => {
-            dispatch(setFriends(response.items))
-        })
-    }
+export const setFriendsTC = () => async (dispatch) => {
+    let response = await usersAPI.getFriends()
+    dispatch(setFriends(response.items))
 }
+
 export default friendsReducer

@@ -6,10 +6,10 @@ import {
     setUserStatusTC,
     updateUserStatusTC
 } from "../../Redux/ProfileReducer";
-import withRouter from "react-router-dom/es/withRouter";
 import {compose} from "redux";
 import {setFriendsTC} from "../../Redux/FriendsReducer";
-import withAuthRedirect from "../Hoc/withAuthRedirect";
+import {withRouter} from "react-router-dom";
+
 
 
 class ProfileContainer extends React.Component {

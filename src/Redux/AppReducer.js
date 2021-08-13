@@ -28,19 +28,10 @@ export const initializApp = () => {
 
 
 //thunks
-export const initializeAppTC = () => {
-    return (dispatch) => {
-        dispatch(getLoginDataTC())
-
-        /*let promise = dispatch(getLoginDataTC());
-        Promise.all([promise]).then(() => {
-                dispatch(initializApp())
-
-            }
-        )*/
-
-
-    }
+export const initializeAppTC = () => async (dispatch) => {
+    await dispatch(getLoginDataTC());
+    dispatch(initializApp())
 }
+
 
 export default appReducer

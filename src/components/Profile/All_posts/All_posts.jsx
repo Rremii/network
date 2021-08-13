@@ -6,7 +6,8 @@ import {maxLenght, required} from "../../../utils/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
 
 
-const AllPosts = (props) => {
+let AllPosts = (props) => {
+
 
     let postData_element = props.profilePage.postData.map((p) => {
         return (
@@ -20,8 +21,9 @@ const AllPosts = (props) => {
 
 
     return (
-        <div className={css.wrapper}>
 
+
+        <div className={css.wrapper}>
             <div className={css.all_block}>
 
                 <PostsReduxForm onSubmit={addPost} className={css.Add_post}/>
@@ -32,6 +34,7 @@ const AllPosts = (props) => {
         </div>
     )
 }
+
 
 export default AllPosts
 //validators

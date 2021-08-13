@@ -1,0 +1,36 @@
+.nonSelected{
+    padding: 0 5px 0;
+    background-color: rgba(150, 238, 26, 0);
+    color: wheat;
+}
+.selectedPage {
+    font-weight: 900;
+    background-color: rgba(150, 238, 26, 0);
+    color: gold;
+}
+.theLeastPage {
+    margin-right: 20px;
+    font-weight: 900;
+    color: gold;
+    background-color: rgba(150, 238, 26, 0);
+
+}
+.theLeastPage_nonSelected {
+    margin-right: 20px;
+    color: wheat;
+    background-color: rgba(150, 238, 26, 0);
+}
+.theMaxPage {
+    margin-left: 20px;
+    font-weight: 900;
+    color: gold;
+    background-color: rgba(150, 238, 26, 0);
+
+}
+.theMaxPage_nonSelected {
+    margin-left: 20px;
+    background-color: rgba(150, 238, 26, 0);
+    color: wheat;
+
+}
+
