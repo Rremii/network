@@ -1,10 +1,11 @@
-import {followAPI, profileAPI} from "../api/api";
-import {follow, toggleFollowingProgress} from "./FindUsersReducer";
+import {profileAPI} from "../api/api";
 
-const ADDPOST = 'ADD-POST'
-const UPDATENEWPOSTTEXT = 'UPDATE-NEW-POST-TEXT'
-const SET_USER_PROFILE ='SET_USER_PROFILE'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const ADDPOST = 'profilePage/ADD-POST'
+const UPDATENEWPOSTTEXT = 'profilePage/UPDATE-NEW-POST-TEXT'
+const SET_USER_PROFILE = 'profilePage/SET_USER_PROFILE'
+const TOGGLE_IS_FETCHING = 'profilePage/TOGGLE_IS_FETCHING'
+const SET_USER_STATUS = 'profilePage/SET_USER_STATUS'
+const DELETE_POST = 'profilePage/DELETE_POST'
 
 let initialState = {
     postData: [
@@ -13,22 +14,23 @@ let initialState = {
     ],
     newPostText: '',
     profile: null,
-    isFetching: false
+    isFetching: false,
+    status: ""
 }
 
 
 const profileReducer = (state = initialState, action) => {
     switch (action.type) {
-        case UPDATENEWPOSTTEXT :
-            return {
-                ...state,
-                newPostText: action.newText
-            }
         case ADDPOST :
             return {
                 ...state,
-                postData: [...state.postData, {id: '5', message: state.newPostText, like: '0'}],
+                postData: [...state.postData, {id: '5', message: action.newPostText, like: '0'}],
                 newPostText: '',
+            }
+        case DELETE_POST :
+            return {
+                ...state,
+                postData: state.postData.filter(p => p.id != action.postId)
             }
         case SET_USER_PROFILE :
             return {
@@ -40,15 +42,20 @@ const profileReducer = (state = initialState, action) => {
                 ...state,
                 isFetching: action.isFetching,
             }
+        case SET_USER_STATUS :
+            return {
+                ...state,
+                status: action.status,
+            }
         default:
             return state
     }
 }
-export const addPostActionCreator = () => {
-    return {type: ADDPOST}
+export const addPost = (newPostText) => {
+    return {type: ADDPOST, newPostText}
 }
-export const updateNewPostTextActionCreator = (text) => {
-    return {type: UPDATENEWPOSTTEXT, newText: text}
+export const deletePost = (postId) => {
+    return {type: DELETE_POST, postId}
 }
 export const setUserProfile = (profile) => {
     return {type: SET_USER_PROFILE, profile}
@@ -56,13 +63,29 @@ export const setUserProfile = (profile) => {
 export const toggleIsFetching = (isFetching) => {
     return {type: TOGGLE_IS_FETCHING, isFetching}
 }
+export const setUsetStatus = (status) => {
+    return {type: SET_USER_STATUS, status}
+}
 export default profileReducer
-export const setUserProfileTC = (userId) =>{
-    return (dispatch)=>{
-        dispatch(toggleIsFetching(true))
-        profileAPI.setUserProfile(userId).then(response => {
-            dispatch(toggleIsFetching(false))
-            dispatch(setUserProfile(response))
-        })
+
+
+export const setUserProfileTC = (userId) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    let response = await profileAPI.setUserProfile(userId)
+    dispatch(toggleIsFetching(false))
+    dispatch(setUserProfile(response))
+}
+
+
+export const setUserStatusTC = (userId) => async (dispatch) => {
+    let response = await profileAPI.getUserStatus(userId)
+    dispatch(setUsetStatus(response.data))
+}
+
+export const updateUserStatusTC = (status) => async (dispatch) => {
+    let response = await profileAPI.updateUserStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setUsetStatus(status))
     }
 }
+

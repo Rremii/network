@@ -1,16 +1,32 @@
 .logo img,
-.logo{
+.logo {
     width: 150px;
     height: 100px;
     background-color: rgba(222, 184, 135, 0);
 }
+
 .header {
     color: rgb(255, 248, 227);
     border: 1px dashed rgba(163, 163, 163, 0.644);
     grid-area: header;
     background-color: burlywood;
 }
-.login{
+
+.login {
     float: right;
     color: gray;
+}
+
+.login button {
+    background-color: rgba(245, 222, 179, 0);
+    color: gray;
+    border: 1px solid gray;
+    padding: 5px;
+    font-size: 21px;
+
+}
+
+.login button:hover {
+    background-color: rgba(0, 0, 0, 0.18);
+    color: #e5e5e5;
 }

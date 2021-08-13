@@ -6,14 +6,11 @@ const Friends_list = (props) => {
 
 
     return (
-
-
         <div className={css.friends_list}>
             <img className={css.avatar} src={props.avatar}
                  alt="ava"/>
             <div className={css.name}>{props.name}</div>
         </div>
-
 
     )
 }

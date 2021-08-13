@@ -1,12 +1,13 @@
 import {followAPI, usersAPI} from "../api/api";
+import {setFriendsTC} from "./FriendsReducer";
 
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SETUSERS'
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT'
-const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
-const TOGGLE_FOLLOWING_PROGRESS = 'TOGGLE_FOLLOWING_PROGRESS'
+const FOLLOW = 'findUsersPage/FOLLOW'
+const UNFOLLOW = 'findUsersPage/UNFOLLOW'
+const SET_USERS = 'findUsersPage/SETUSERS'
+const SET_CURRENT_PAGE = 'findUsersPage/SET_CURRENT_PAGE'
+const SET_TOTAL_USERS_COUNT = 'findUsersPage/SET_TOTAL_USERS_COUNT'
+const TOGGLE_IS_FETCHING = 'findUsersPage/TOGGLE_IS_FETCHING'
+const TOGGLE_FOLLOWING_PROGRESS = 'findUsersPage/TOGGLE_FOLLOWING_PROGRESS'
 
 //state
 let initialState = {
@@ -64,8 +65,8 @@ const findUsersReducer = (state = initialState, action) => {
             return {
                 ...state,
                 followingProgress: action.isFetching
-                    ?[...state.followingProgress,action.userId]
-                    :state.followingProgress.filter(id=>id != action.userId)
+                    ? [...state.followingProgress, action.userId]
+                    : state.followingProgress.filter(id => id != action.userId)
             }
         default:
             return state
@@ -90,42 +91,39 @@ export const setTotalUsersCount = (totalCount) => {
 export const toggleIsFetching = (isFetching) => {
     return {type: TOGGLE_IS_FETCHING, isFetching}
 }
-export const toggleFollowingProgress = (isFetching,userId) => {
-    return {type: TOGGLE_FOLLOWING_PROGRESS, isFetching,userId}
+export const toggleFollowingProgress = (isFetching, userId) => {
+    return {type: TOGGLE_FOLLOWING_PROGRESS, isFetching, userId}
 }
 
 export default findUsersReducer
 
-export const getUsersTC = (currentPage,pageSize) =>{
-    return (dispatch)=>{
-        dispatch(setCurrentPage(currentPage))
-        dispatch(toggleIsFetching(true))
-        dispatch(setUsers(''))
-        dispatch(setTotalUsersCount(''))
-        usersAPI.getUsers(currentPage,pageSize).then(response => {
-            dispatch(toggleIsFetching(false))
-            dispatch(setUsers(response.items))
-            dispatch(setTotalUsersCount(response.totalCount))
-        })
-    }
+export const getUsersTC = (currentPage, pageSize) => async (dispatch) => {
+    dispatch(setCurrentPage(currentPage))
+    dispatch(toggleIsFetching(true))
+    dispatch(setUsers(''))
+    dispatch(setTotalUsersCount(''))
+    let response = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(toggleIsFetching(false))
+    dispatch(setUsers(response.items))
+    dispatch(setTotalUsersCount(response.totalCount))
 }
-export const unfollowTC = (userId) =>{
-    return (dispatch)=>{
-        dispatch(toggleFollowingProgress(true,userId))
-        followAPI.unfollow(userId).then(response => {
-            if (response.resultCode == 0)
-            {dispatch(unfollow(userId))}
-            dispatch(toggleFollowingProgress(false,userId))
-        })
+
+export const unfollowTC = (userId) => async (dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    let response = await followAPI.unfollow(userId)
+    if (response.resultCode === 0) {
+        dispatch(unfollow(userId))
     }
+    dispatch(toggleFollowingProgress(false, userId))
+    dispatch(setFriendsTC())
 }
-export const followTC = (userId) =>{
-    return (dispatch)=>{
-        dispatch(toggleFollowingProgress(true,userId))
-        followAPI.follow(userId).then(response => {
-            if (response.resultCode == 0)
-            {dispatch(follow(userId))}
-            dispatch(toggleFollowingProgress(false,userId))
-        })
+
+export const followTC = (userId) => async (dispatch) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    let response = await followAPI.follow(userId)
+    if (response.resultCode === 0) {
+        dispatch(follow(userId))
     }
+    dispatch(toggleFollowingProgress(false, userId))
+    dispatch(setFriendsTC())
 }

@@ -4,22 +4,20 @@ import {connect} from "react-redux";
 
 let mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        initialized: state.app.initialized
     }
 }
 
 const withAuthRedirect = (Component) => {
     class redirectComponent extends React.Component {
         render() {
-
             if (!this.props.isAuth) {
-                alert('you should login first!')
                 return <Redirect to={"/login"}/>
-            }
-            return <Component {...this.props} />
+            } else return <Component {...this.props} />
+
         }
     }
-
 
 
     let connectedAuthRedirectComponent = connect(mapStateToProps)(redirectComponent)
@@ -27,3 +25,4 @@ const withAuthRedirect = (Component) => {
     return connectedAuthRedirectComponent
 }
 export default withAuthRedirect
+

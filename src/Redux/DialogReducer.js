@@ -1,5 +1,5 @@
-const ADDMESSAGE = 'ADD-MESSAGE'
-const UPDATENEWMESSAGETEXT = 'UPDATE-NEW-MESSAGE-TEXT'
+const ADDMESSAGE = 'dialogPage/ADD-MESSAGE'
+const UPDATENEWMESSAGETEXT = 'dialogPage/UPDATE-NEW-MESSAGE-TEXT'
 
 
 let initialState = {
@@ -31,22 +31,19 @@ let initialState = {
 const dialogReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case UPDATENEWMESSAGETEXT :
-            return {...state, newMessageText: action.newText}
         case ADDMESSAGE:
             return {
                 ...state, newMessageText: '',
-                messageData: [...state.messageData, {id: '5', message: state.newMessageText}]
+                messageData: [...state.messageData, {id: '5', message: action.newMessageText}]
             }
+
         default:
             return state
     }
 }
 
-export const addMessageActionCreator = () => {
-    return {type: ADDMESSAGE}
+export const addMessage = (newMessageText) => {
+    return {type: ADDMESSAGE,newMessageText}
 }
-export const updateNewMessageTextActionCreator = (text) => {
-    return {type: UPDATENEWMESSAGETEXT, newText: text}
-}
+
 export default dialogReducer

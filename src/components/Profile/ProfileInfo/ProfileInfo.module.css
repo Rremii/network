@@ -19,9 +19,13 @@
     left: 270px;
     top: -150px;
 }
-.preloader{
+
+.preloader {
     position: absolute;
     top: 300px;
     left: 600px;
 }
 
+.status {
+    padding: 10px 0 10px 0;
+}

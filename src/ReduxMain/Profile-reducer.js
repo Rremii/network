@@ -2,9 +2,7 @@ const ADDPOST = 'ADD-POST'
 const UPDATENEWPOSTTEXT = 'UPDATE-NEW-POST-TEXT'
 
 
-
-
-const profileReducer = (state , action) => {
+const profileReducer = (state, action) => {
 
     switch (action.type) {
         case ADDPOST :
@@ -29,7 +27,6 @@ export const addPostActionCreator = () => {
 export const updateNewPostTextActionCreator = (text) => {
     return {type: UPDATENEWPOSTTEXT, newText: text}
 }
-
 
 
 export default profileReducer
