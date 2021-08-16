@@ -8,18 +8,18 @@ const User = ({user, ...props}) => {
         <div>
             <div className={css.wrapper}>
                 <NavLink to={'/profile/' + user.id}>
-                    <img src={user.photos.small != null ? user.photos.small : userPhoto}/>
+                    <img alt={''} src={user.photos.small != null ? user.photos.small : userPhoto}/>
                 </NavLink>
                 <span>{user.name}</span>
                 <span>{user.status}</span>
                 <span>
-                            {user.followed ?
-                                <button disabled={props.followingProgress.some(id => id === user.id)} onClick={() => {
+                            {user.followed
+                                ? <button disabled={props.followingProgress.some(id => id === user.id)} onClick={() => {
 
                                     props.unfollowTC(user.id)
 
-                                }}>unfollow</button> :
-                                <button disabled={props.followingProgress.some(id => id === user.id)} onClick={() => {
+                                }}>unfollow</button>
+                                : <button disabled={props.followingProgress.some(id => id === user.id)} onClick={() => {
 
                                     props.followTC(user.id)
 

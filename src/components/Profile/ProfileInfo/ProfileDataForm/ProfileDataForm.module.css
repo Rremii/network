@@ -30,9 +30,21 @@
     padding: 10px 0 10px 0;
 }
 .contacts{
-    position: absolute;
-    top: -50px;
-    left: 330px;
+    position:relative;
+    top: -110px;
+    left: 150px;
+
     color: #33e2e6;
     padding-left: 50px;
+}
+.contact{
+    position: absolute;
+    top: -130px;
+    left: 333px;
+    color: #81b7cc;
+}
+.mainError {
+    display: inline-block;
+    border: 1px solid crimson;
+    color: red;
 }

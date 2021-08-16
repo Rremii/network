@@ -1,12 +1,11 @@
 import React from 'react'
 import Header from "./Header";
-import {getLoginDataTC, logoutTC, setAuthUserData} from "../../Redux/authReducer";
+import {logoutTC} from "../../Redux/authReducer";
 import {connect} from "react-redux";
 import {compose} from "redux";
 
 
 class HeaderContainer extends React.Component {
-
 
 
     render() {

@@ -1,7 +1,7 @@
 import React from "react";
 import Paginator from "../common/paginator/Paginator";
 import User from "./User/User";
-import Preloader from "../common/preloader/Preloader";
+
 
 const FindUsers = (props) => {
 
@@ -15,7 +15,8 @@ const FindUsers = (props) => {
                        onPageChanged={props.onPageChanged}/>
 
             {props.users.map(u =>
-                <User user={u}
+                <User key={u.id}
+                      user={u}
                       followingProgress={props.followingProgress}
                       unfollowTC={props.unfollowTC}
                       followTC={props.followTC}/>

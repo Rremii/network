@@ -1,6 +1,5 @@
 import React from 'react'
 import Friend from "./Friend/Friend";
-import userPhoto from "../../Images/userPhoto.png"
 
 const AllFriends = (props) => {
 

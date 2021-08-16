@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 
-const ProfileStatusHooks = (props) => {
+const ProfileStatus = (props) => {
 
     let [editmod, setEditMod] = useState(false)
     let [status, setStatus] = useState(props.status)
@@ -38,5 +38,5 @@ const ProfileStatusHooks = (props) => {
 
 }
 
-export default ProfileStatusHooks
+export default ProfileStatus
 

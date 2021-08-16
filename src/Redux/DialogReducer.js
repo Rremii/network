@@ -1,5 +1,5 @@
 const ADDMESSAGE = 'dialogPage/ADD-MESSAGE'
-const UPDATENEWMESSAGETEXT = 'dialogPage/UPDATE-NEW-MESSAGE-TEXT'
+
 
 
 let initialState = {

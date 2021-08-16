@@ -27,9 +27,9 @@ export const followAPI = {
     }
 }
 export const authAPI = {
-    login: (email, password, rememberMe) => {
 
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    login: (email, password, rememberMe,captcha = null) => {
+        return instance.post(`auth/login`, {email, password, rememberMe,captcha})
     },
     getLoginData: () => {
         return instance.get(`auth/me`).then(response => response.data)
@@ -47,5 +47,22 @@ export const profileAPI = {
     },
     updateUserStatus: (status) => {
         return instance.put(`profile/status`, {status})
-    }
+    },
+    setUserPhoto:(photoFile)=>{
+        const formData = new FormData()
+        formData.append("image",photoFile)
+        return instance.put(`profile/photo`, formData,{
+            headers:{
+                'Content-Type':'multipart/form-data'
+            }
+        })
+    },
+    saveProfile: (profile) => {
+        return instance.put(`profile`, {...profile,AboutMe:'hello',LookingForAJobDescription:'i do'})
+    },
 }
+export const securityAPI = {
+    getCaptchaUrl: () => {
+        return instance.get(`security/get-captcha-url`)
+
+}}

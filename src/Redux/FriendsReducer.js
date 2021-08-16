@@ -1,5 +1,4 @@
-import {followAPI, usersAPI} from "../api/api";
-import {toggleFollowingProgress, unfollow} from "./FindUsersReducer";
+import {usersAPI} from "../api/api";
 
 const SET_FRIENDS = 'friendsPage/SET_FRIENDS'
 
@@ -38,7 +37,6 @@ const friendsReducer = (state = initialState, action) => {
             return state
 
     }
-    return state
 }
 export const setFriends = (friends) => {
     return {type: SET_FRIENDS, friends}

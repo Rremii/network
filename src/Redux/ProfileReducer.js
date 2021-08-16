@@ -1,11 +1,13 @@
 import {profileAPI} from "../api/api";
+import {stopSubmit} from "redux-form";
 
 const ADDPOST = 'profilePage/ADD-POST'
-const UPDATENEWPOSTTEXT = 'profilePage/UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'profilePage/SET_USER_PROFILE'
 const TOGGLE_IS_FETCHING = 'profilePage/TOGGLE_IS_FETCHING'
 const SET_USER_STATUS = 'profilePage/SET_USER_STATUS'
 const DELETE_POST = 'profilePage/DELETE_POST'
+const SET_USER_PHOTO = 'profilePage/SET_USER_PHOTO'
+const SAVE_PROFILE = 'profilePage/SAVE_PROFILE'
 
 let initialState = {
     postData: [
@@ -30,7 +32,7 @@ const profileReducer = (state = initialState, action) => {
         case DELETE_POST :
             return {
                 ...state,
-                postData: state.postData.filter(p => p.id != action.postId)
+                postData: state.postData.filter(p => p.id !== action.postId)
             }
         case SET_USER_PROFILE :
             return {
@@ -46,6 +48,18 @@ const profileReducer = (state = initialState, action) => {
             return {
                 ...state,
                 status: action.status,
+            }
+        case SET_USER_PHOTO :
+
+            return {
+                ...state,
+                profile: {...state.profile, photos: action.userPhoto}
+            }
+        case SAVE_PROFILE :
+
+            return {
+                ...state,
+                profile: action.profileData
             }
         default:
             return state
@@ -66,6 +80,12 @@ export const toggleIsFetching = (isFetching) => {
 export const setUsetStatus = (status) => {
     return {type: SET_USER_STATUS, status}
 }
+export const setUserPhoto = (userPhoto) => {
+    return {type: SET_USER_PHOTO, userPhoto}
+}
+export const saveProfile = (profileData) => {
+    return {type: SAVE_PROFILE, profileData}
+}
 export default profileReducer
 
 
@@ -83,9 +103,31 @@ export const setUserStatusTC = (userId) => async (dispatch) => {
 }
 
 export const updateUserStatusTC = (status) => async (dispatch) => {
-    let response = await profileAPI.updateUserStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setUsetStatus(status))
+    try {
+        let response = await profileAPI.updateUserStatus(status)
+        debugger
+        if (response.data.resultCode === 0) {
+            dispatch(setUsetStatus(status))
+        }
+    } catch (error) {
+        alert('some error')
     }
 }
-
+export const SetUserPhotoTC = (userPhoto) => async (dispatch) => {
+    dispatch(toggleIsFetching(true))
+    let response = await profileAPI.setUserPhoto(userPhoto)
+    if (response.data.resultCode === 0) {
+        dispatch(toggleIsFetching(false))
+        dispatch(setUserPhoto(response.data.data.photos))
+    }
+}
+export const saveProfileTC = (profileData) => async (dispatch, getState) => {
+    let userId = getState().auth.currentUserId
+    let response = await profileAPI.saveProfile(profileData)
+    if (response.data.resultCode === 0) {
+        dispatch(setUserProfileTC(userId))
+    } else {
+        dispatch(stopSubmit("editProfile", {_error: response.data.messages[0]}))
+        return Promise.reject(response.data.messages[0])
+    }
+}

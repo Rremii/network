@@ -1,5 +1,5 @@
 import css from './Paginator.module.css'
-import React, {useEffect, useState} from "react";
+import React from "react";
 
 
 const Paginator = (props) => {
@@ -43,6 +43,7 @@ const Paginator = (props) => {
         {
             pages.slice(minPage, maxPage).map(p => {
                 return <button
+                    key={p}
                     className={props.currentPage === p ? css.selectedPage : css.nonSelected}
                     onClick={() => {
                         props.onPageChanged(p)

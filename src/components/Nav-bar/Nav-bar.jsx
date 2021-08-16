@@ -1,13 +1,13 @@
 import React from 'react'
 import css from './Nav-bar.module.css'
 import {NavLink} from "react-router-dom";
-import Friends_list from "./Friends_list/Friends_list";
 import userPhoto from "../../Images/userPhoto.png"
+import FriendList from "./Friends_list/Friends_list";
 
-const Nav_bar = (props) => {
+const NavBar = (props) => {
 
     let friends_list = props.friendsData.slice(0, 3).map((d) => {
-        return (<Friends_list avatar={d.photos.small ? d.photos.small : userPhoto} name={d.name}/>)
+        return (<FriendList avatar={d.photos.small ? d.photos.small : userPhoto} name={d.name}/>)
     })
 
 
@@ -18,9 +18,6 @@ const Nav_bar = (props) => {
             </NavLink>
             <NavLink activeClassName={css.active_btn} to="/dialogs">
                 <button>Messages</button>
-            </NavLink>
-            <NavLink activeClassName={css.active_btn} to="/news">
-                <button>News</button>
             </NavLink>
             < NavLink activeClassName={css.active_btn} to="/findUsers">
                 <button>Find users</button>
@@ -34,4 +31,4 @@ const Nav_bar = (props) => {
     )
 }
 
-export default Nav_bar
+export default NavBar

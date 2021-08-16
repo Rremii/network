@@ -2,7 +2,7 @@ import React from 'react'
 import css from './Friends_list.module.css'
 
 
-const Friends_list = (props) => {
+const FriendList = (props) => {
 
 
     return (
@@ -14,4 +14,4 @@ const Friends_list = (props) => {
 
     )
 }
-export default Friends_list
+export default FriendList

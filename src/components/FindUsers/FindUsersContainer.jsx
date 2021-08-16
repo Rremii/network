@@ -16,7 +16,7 @@ import {
     getTotalUsersCount,
     getUsers
 } from "../../Redux/FindUsers-selector";
-import Paginator from "../common/paginator/Paginator";
+
 
 class FindUsersContainer extends React.Component {
 

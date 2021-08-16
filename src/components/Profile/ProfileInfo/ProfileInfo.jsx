@@ -1,33 +1,54 @@
-import React from 'react'
+import React, {useState} from 'react'
 import css from './ProfileInfo.module.css'
 import Preloader from "../../common/preloader/Preloader";
 import userPhoto from "../../../Images/userPhoto.png";
-import ProfileStatusHooks from "./ProfileStatusHooks";
+import ProfileDataForm from "./ProfileDataForm/ProfileDataForm";
+import ProfileData from "./ProfileData/ProfileData";
+
 
 
 let ProfileInfo = (props) => {
+
+
+    let [editmod, setEditMod] = useState(false)
+
+    let toggleEditMod = () => {
+        return setEditMod(true)
+    }
+
+    let setUserPhoto = (e) => {
+        if (e.target.files.length) {
+            props.SetUserPhotoTC(e.target.files[0])
+        }
+    }
+    let onSubmit = (formData) => {
+        props.saveProfileTC(formData).then(() => {
+            setEditMod(false)
+        })
+
+    }
+
     if (!props.profile || props.isFetching === true) {
         return <div className={css.preloader}>
             <Preloader/>
         </div>
     }
-
     return <>
 
         <div className={css.avatar_discription}>
-            <img className={css.avatar}
+
+            <img alt={''} className={css.avatar}
                  src={props.profile.photos.small != null ? props.profile.photos.small : userPhoto}/>
-            <div className={css.discription}>
-                <div>{props.profile.fullName}</div>
-                <div className={css.status}>
-                    <ProfileStatusHooks status={props.status}
-                                        updateUserStatusTC={props.updateUserStatusTC}/>
-                </div>
-                {props.profile.lookingForAJob ? <div>looking for a job : yes</div> :
-                    <div>looking for a job : nope</div>}
-            </div>
+
+
+            {editmod
+                ? <ProfileDataForm initialValues={props.profile} {...props} onSubmit={onSubmit}/>
+                : <ProfileData {...props} setUserPhoto={setUserPhoto} toggleEditMod={toggleEditMod}/>}
+
+
         </div>
     </>
 }
-
 export default ProfileInfo
+
+
